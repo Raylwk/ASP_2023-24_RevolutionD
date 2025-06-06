@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Inputs</title>
+    <style>
+        form {
+            display: grid;
+            grid-template-columns: 150px auto;
+            grid-gap: 10px;
+            max-width: 400px;
+            margin: auto;
+        }
+
+        label {
+            text-align: left;
+        }
+
+        input {
+            width: 100%;
+            box-sizing: border-box;
+            margin-bottom: 10px;
+        }
+
+        input[type="submit"] {
+            width: auto;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Sensor Data Inputs</h2>
+    <button onclick="fillFieldsWithRandomNumbers()">Fill with Random Numbers</button>
+    <form onsubmit='fetchHtml(event);'>
+        <label for="Age">Age:</label>
+        <input type="text" id="Age" name="Age">
+
+        <label for="Height">Height:</label>
+        <input type="text" id="Height" name="Height">
+
+        <label for="Weight">Weight:</label>
+        <input type="text" id="Weight" name="Weight">
+
+        <label for="Sp02">Sp02:</label>
+        <input type="text" id="Sp02" name="Sp02">
+        
+        <label for="Heart_Rate">Heart Rate:</label>
+        <input type="text" id="Heart_Rate" name="Heart_Rate">
+
+        <label for="Motion">Motion:</label>
+        <input type="text" id="Motion" name="Motion">
+
+        <label for="Humidity">Humidity:</label>
+        <input type="text" id="Humidity" name="Humidity">
+
+        <label for="Temperature">Temperature:</label>
+        <input type="text" id="Temperature" name="Temperature">
+
+        <label for="EDA">EDA:</label>
+        <input type="text" id="EDA" name="EDA">
+
+        <input type="submit" value="Submit">
+    </form>
+    <div id="result">
+        Result: <span id="resultValue">N/A</span>
+        <br/>
+        Full Result: <span id="fullResult">N/A</span>
+    </div>
+    <script>
+        function fetchHtml(event) {
+            // Prevent the default form submission behavior
+            event.preventDefault();
+
+            // Get the form element
+            var form = document.querySelector('form');
+
+            // Create a FormData object from the form
+            var formData = new FormData(form);
+            console.log(formData)   
+            // Fetch the predicted value from the external API
+            fetch('http://172.24.47.194:5000/send', {
+                method: 'POST',
+                body: formData
+            })
+            .then((response) => response.json())
+            .then((result) => {
+                // Once you have the predicted value, submit the form data to the PHP script
+                submitToDatabase(formData, result[0]);
+            });
+        }
+
+        function submitToDatabase(formData, predictedValue) {
+            // Add the predicted value to the formData
+            formData.append('predictedValue', predictedValue);
+
+            // Fetch the PHP script to insert data into the database
+            fetch('submit.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then((response) => response.text())
+            .then((insertionResult) => {
+                // Handle the insertion result as needed
+                console.log(insertionResult);
+
+                // Update the numerical result inside the span with the id "resultValue"
+                document.getElementById('resultValue').innerText = predictedValue;
+
+                // Update the full result in key-value format inside the span with the id "fullResult"
+                var keyValuePairs = [];
+                formData.forEach(function(value, key){
+                    keyValuePairs.push(key + ': ' + value);
+                });
+                keyValuePairs.push('Blood Glucose: ' + predictedValue);
+                document.getElementById('fullResult').innerText = keyValuePairs.join(', ');
+            });
+        }
+
+        function fillFieldsWithRandomNumbers() {
+            // Get all input fields
+            var inputFields = document.querySelectorAll('form input[type="text"]');
+
+            // Fill each input field with a random number between 1 and 100
+            inputFields.forEach(function (input) {
+                input.value = Math.floor(Math.random() * 100) + 1;
+            });
+        }
+    </script>
+</body>
+</html>

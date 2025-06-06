@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+
+        .container {
+            width: 80%;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        h1 {
+            margin-top: 10px;
+            text-align: center;
+        }
+
+        .profile-info,
+        .medical-history {
+            margin-top: 20px;
+            text-align: left;
+            border-radius: 10px; /* Rounded border */
+            border: 1px solid #ddd; /* Border color */
+            padding: 15px; /* Padding inside the sections */
+        }
+
+        .profile-info h2,
+        .medical-history h2 {
+            margin-top: 0;
+            text-align: center;
+        }
+
+        .profile-info img {
+            border-radius: 50%;
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            margin: 0 auto; /* Center the image */
+            display: block; /* Change the display to block */
+            vertical-align: middle;
+        }
+
+        .profile-info h1 {
+            margin: 10px 0;
+            text-align: center;
+        }
+
+        .profile-info p,
+        .medical-history p {
+            margin: 5px 0;
+            text-align: center; /* Center the text */
+        }
+        nav {
+            background-color: #333;
+            overflow: hidden;
+        }
+
+        nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center; /* Center the navigation links */
+        }
+
+        nav ul li {
+            display: inline;
+        }
+
+        nav ul li a {
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 20px;
+            text-decoration: none;
+        }
+
+        nav ul li a:hover {
+            background-color: #ddd;
+            color: black;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="view_data.php">View Data</a></li>
+            <li><a href="profile.html">Profile</a></li>
+            <li><a href="help.html">Help</a></li>
+        </ul>
+    </nav>
+    <div class="container">
+        <div class="profile-info">
+            <img src="https://preview.redd.it/this-person-does-not-exist-v0-9l5x3d2g21591.jpg?auto=webp&s=97e2a0e5624f9e052678ddb38812fea2945f5b19" alt="User Avatar">
+            <h1>John Doe</h1>
+            <div class="user-details">
+                <p><strong>Date of Birth:</strong> 19 January 1967</p>
+                <p><strong>Gender:</strong> Male</p>
+                <p><strong>Height:</strong> 175 cm</p>
+                <p><strong>Weight:</strong> 70 kg</p>
+                <!-- Add more profile details as needed -->
+            </div>
+        </div>
+        <div class="medical-history">
+            <h2>Medical History</h2>
+            <p><strong>Blood Pressure:</strong> 120/80 mmHg</p>
+            <p><strong>Cholesterol Level:</strong> 200 mg/dL</p>
+            <p><strong>Diabetes:</strong> Type 2</p>
+            <!-- Add more medical history details as needed -->
+        </div>
+    </div>
+</body>
+</html>
